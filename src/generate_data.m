@@ -9,10 +9,14 @@ input_ports = 64;
 MTU = 12000;
 % Arrival rate of possion distribution (packets/sec)
 lambda = 4;
-% Maximum size of each buffer()
-max_buf_size = 30;
+% entries in array
+entries = 100;
+% input buffer size (max 20 packets of size 12k)
+max_buf_size = 20 * 12000;
 % Buffer initialization(each port buffer size = max_size * MTU bits)
-buffer = zeros(input_ports, max_buf_size);
+buffer(input_ports, 1) = max_buf_size;
+% packet size
+pkt_size = zeros(input_ports, entries);
 
 % Generate number of packets for each input port according to 
 % the possion distribution.
@@ -23,11 +27,15 @@ no_of_packets = poissrnd(lambda, input_ports, 1);
 % Calculate packet size for each packet
 % randi generates array having number between 1-MTU
 % assign genearated values to buffer of corresponding port.
-% if number of packets are greater than max_buf_size then drop some.
+% if total packet length is greater than max_buf_size then drop few packets.
 for i=1:input_ports
-    if no_of_packets(i) > max_buf_size
-        buffer(i) = randi(MTU, 1, max_buf_size);
+    temp = randi(MTU, 1, no_of_packets(i));
+    while sum(temp) > buffer(i,1)
+        temp = temp(1, 1:(end-1));
+    end
+    if length(temp) > 1 
+        pkt_size(i,:) = enqueue(pkt_size(i,:), temp);
     else
-        buffer(i) = randi(MTU, 1, no_of_packets(i));
+        fprintf('some packets are dropped');
     end
 end
