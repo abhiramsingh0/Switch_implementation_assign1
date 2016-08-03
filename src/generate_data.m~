@@ -23,11 +23,9 @@ no_of_packets = poissrnd(lambda, input_ports, 1);
 % Calculate packet size for each packet
 % randi generates array having number between 1-MTU
 % assign genearated values to buffer of corresponding port.
-% if number of packets are greater than max_buf_size then drop some.
 for i=1:input_ports
     if no_of_packets(i) > max_buf_size
         buffer(i) = randi(MTU, 1, max_buf_size);
     else
         buffer(i) = randi(MTU, 1, no_of_packets(i));
-    end
 end
