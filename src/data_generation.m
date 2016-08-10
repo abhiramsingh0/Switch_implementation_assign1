@@ -36,8 +36,8 @@ for i=1:input_ports
         end
         % print if some packets are dropped
         if 0 ~= drop_size
-            fprintf('\n some packets are dropped at input line %d',i);
-            fprintf('\n total size of dropping %d\n', drop_size);
+%            fprintf('\n some packets are dropped at input line %d',i);
+%            fprintf('\n total size of dropping %d\n', drop_size);
             return
         end
         % insert newly generated packets in buffers

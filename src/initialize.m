@@ -15,10 +15,6 @@ lambda = 4;
 % assumed minimum packet size
 min_pkt_size = 200;
 % max value to keep track of number of packets in any buffer
-entries = 200;
+entries = 500;
 % maximum packet size
 MTU = 12000;
-% number of packets
-no_of_packets = 40;
-% maximum size of buffer
-max_buf_size = no_of_packets * MTU;

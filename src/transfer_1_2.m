@@ -1,7 +1,7 @@
 % Function to transfer packets from layer 1 to layer 2
 function[buffer_1, buffer_left_1, buffer_2, buffer_left_2] = ...
         transfer_1_2(buffer_1, buffer_left_1, buffer_2, buffer_left_2)
-    
+
     initialize
     success = 0;
 % forward packets from each input layer buffer 

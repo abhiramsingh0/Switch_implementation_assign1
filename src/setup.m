@@ -1,11 +1,15 @@
-function[drop_size] = startup()
+function[drop_size] = setup(size_buffer)
 %% ==================== initialize variables ===================
 initialize
-seconds = 1000;
+seconds = 5000;
+% number of packets
+max_packets = size_buffer;
+% maximum size of buffer
+max_buf_size = max_packets * MTU;
 
 % initialize input layer buffers
 buffer_1 = zeros(input_ports, entries, 3);
-buffer_left_1(1:input_ports, 1) = max_buf_size;
+buffer_left_1(1:input_ports, :) = max_buf_size;
 
 % initialize middle layer buffers
 buffer_2 = zeros((2 * ppswitch_input -1), (input_ports/ppswitch_input), ...
@@ -28,9 +32,9 @@ for i = 1:seconds
     [buffer_1, buffer_left_1, drop_size] = data_generation( buffer_1, ...
         buffer_left_1);
     if 0 ~= drop_size
-        fprintf('\npackets are dropped at input layer\n');
-        fprintf('\nstopping program, increase buffer size\n');
-        fprintf('\n i = %d\n',i);
+%        fprintf('\npackets are dropped at input layer\n');
+%        fprintf('\nstopping program, increase buffer size\n');
+%        fprintf('\n i = %d\n',i);
         break;
     end
     % processsing for each 200ms
