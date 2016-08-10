@@ -9,7 +9,7 @@ parfor j = 1:length(buf_size)
 end
 index = find(drop_occurs == 0,1);
 if isempty(index)
-    printf('\nbuffer size needs to be more\n');
+    fprintf('\nbuffer size needs to be more\n');
 else
     fprintf('\n For 5000 seconds');
     printf('\n optimal buffer size is %d*12000 bits\n',buf_size(index));
