@@ -1,7 +1,5 @@
 % implementation of queue enqueue operations
-% current implementation do not need it
-
-function [queue] = enqueue(queue, value)
+function[queue] = enqueue(queue, value)
 
 % insert only if number of non zero entries are less than total entries
 % insert at first zero value position
